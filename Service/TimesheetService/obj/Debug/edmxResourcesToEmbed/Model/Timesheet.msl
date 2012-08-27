@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TFSW_TimesheetModelStoreContainer" CdmEntityContainer="TimesheetEntities">
+    <EntitySetMapping Name="Collections">
+      <EntityTypeMapping TypeName="TimesheetModel.Collection">
+        <MappingFragment StoreEntitySet="Collections">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CollectionName" ColumnName="CollectionName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="TimesheetModel.Project">
+        <MappingFragment StoreEntitySet="Projects">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="CollectionId" ColumnName="CollectionId" />
+          <ScalarProperty Name="ManagerName" ColumnName="ManagerName" />
+          <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+          <ScalarProperty Name="TeamSize" ColumnName="TeamSize" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SchemaVersions">
+      <EntityTypeMapping TypeName="TimesheetModel.SchemaVersion">
+        <MappingFragment StoreEntitySet="SchemaVersion">
+          <ScalarProperty Name="version" ColumnName="version" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TimeSheet_AllUsers">
+      <EntityTypeMapping TypeName="TimesheetModel.TimeSheet_AllUsers">
+        <MappingFragment StoreEntitySet="TimeSheet_AllUsers">
+          <ScalarProperty Name="sid" ColumnName="sid" />
+          <ScalarProperty Name="ProjectCollectionId" ColumnName="ProjectCollectionId" />
+          <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TimesheetCompletions">
+      <EntityTypeMapping TypeName="TimesheetModel.TimesheetCompletion">
+        <MappingFragment StoreEntitySet="TimesheetCompletions">
+          <ScalarProperty Name="sid" ColumnName="sid" />
+          <ScalarProperty Name="weekStarting" ColumnName="weekStarting" />
+          <ScalarProperty Name="completed" ColumnName="completed" />
+          <ScalarProperty Name="approved" ColumnName="approved" />
+          <ScalarProperty Name="administratorSid" ColumnName="administratorSid" />
+          <ScalarProperty Name="comments" ColumnName="comments" />
+          <ScalarProperty Name="ProjectCollectionId" ColumnName="ProjectCollectionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TimesheetEntries">
+      <EntityTypeMapping TypeName="TimesheetModel.TimesheetEntry">
+        <MappingFragment StoreEntitySet="TimesheetEntries">
+          <ScalarProperty Name="entryId" ColumnName="entryId" />
+          <ScalarProperty Name="workItemId" ColumnName="workItemId" />
+          <ScalarProperty Name="sid" ColumnName="sid" />
+          <ScalarProperty Name="hours" ColumnName="hours" />
+          <ScalarProperty Name="entryDate" ColumnName="entryDate" />
+          <ScalarProperty Name="ProjectCollectionId" ColumnName="ProjectCollectionId" />
+          <ScalarProperty Name="fieldName" ColumnName="fieldName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionName="TFSW_TimesheetModel.Store.USP_TFS_AllDates" FunctionImportName="USP_TFS_AllDates">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TimesheetModel.USP_TFS_AllDates_Result">
+          <ScalarProperty Name="thedate" ColumnName="thedate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Insert_into_TimeSheet_AlluserReal" FunctionName="TFSW_TimesheetModel.Store.Insert_into_TimeSheet_AlluserReal" />
+    <FunctionImportMapping FunctionImportName="Insertinto_TimeSheet_Allusers_1" FunctionName="TFSW_TimesheetModel.Store.Insertinto_TimeSheet_Allusers_1" />
+    <FunctionImportMapping FunctionImportName="usp_INS_WorkItemForWeek" FunctionName="TFSW_TimesheetModel.Store.usp_INS_WorkItemForWeek" />
+    <FunctionImportMapping FunctionImportName="usp_RS_AwaitingApproval" FunctionName="TFSW_TimesheetModel.Store.usp_RS_AwaitingApproval" />
+    <FunctionImportMapping FunctionImportName="usp_RS_EntriesForWeek" FunctionName="TFSW_TimesheetModel.Store.usp_RS_EntriesForWeek" />
+    <FunctionImportMapping FunctionImportName="usp_RS_Problems" FunctionName="TFSW_TimesheetModel.Store.usp_RS_Problems" />
+    <FunctionImportMapping FunctionImportName="usp_RS_UserInfo" FunctionName="TFSW_TimesheetModel.Store.usp_RS_UserInfo" />
+    <FunctionImportMapping FunctionImportName="usp_RS_Users" FunctionName="TFSW_TimesheetModel.Store.usp_RS_Users" />
+    <FunctionImportMapping FunctionImportName="usp_TFS" FunctionName="TFSW_TimesheetModel.Store.usp_TFS">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TimesheetModel.usp_TFS_Result">
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="approved" ColumnName="approved" />
+          <ScalarProperty Name="weekStarting" ColumnName="weekStarting" />
+          <ScalarProperty Name="Totalhours" ColumnName="Totalhours" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_TFS_TimeSheet_Report" FunctionName="TFSW_TimesheetModel.Store.USP_TFS_TimeSheet_Report">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TimesheetModel.USP_TFS_TimeSheet_Report_Result">
+          <ScalarProperty Name="employeename" ColumnName="employeename" />
+          <ScalarProperty Name="projectname" ColumnName="projectname" />
+          <ScalarProperty Name="approved" ColumnName="approved" />
+          <ScalarProperty Name="weekstarting" ColumnName="weekstarting" />
+          <ScalarProperty Name="totalhours" ColumnName="totalhours" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_TFS_TimeSheet_Report1" FunctionName="TFSW_TimesheetModel.Store.USP_TFS_TimeSheet_Report1">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TimesheetModel.USP_TFS_TimeSheet_Report1_Result">
+          <ScalarProperty Name="employeename" ColumnName="employeename" />
+          <ScalarProperty Name="projectname" ColumnName="projectname" />
+          <ScalarProperty Name="approved" ColumnName="approved" />
+          <ScalarProperty Name="weekstarting" ColumnName="weekstarting" />
+          <ScalarProperty Name="totalhours" ColumnName="totalhours" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_UPD_EntriesForWeek" FunctionName="TFSW_TimesheetModel.Store.usp_UPD_EntriesForWeek" />
+    <FunctionImportMapping FunctionImportName="usp_UPD_StateForWeek" FunctionName="TFSW_TimesheetModel.Store.usp_UPD_StateForWeek" />
+    <FunctionImportMapping FunctionImportName="usp_UPD_TimeOnWorkItem" FunctionName="TFSW_TimesheetModel.Store.usp_UPD_TimeOnWorkItem" />
+  </EntityContainerMapping>
+</Mapping>

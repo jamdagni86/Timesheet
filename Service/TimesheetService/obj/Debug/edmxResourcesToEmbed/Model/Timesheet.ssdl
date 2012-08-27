@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TFSW_TimesheetModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="TFSW_TimesheetModelStoreContainer">
+    <EntitySet Name="Collections" EntityType="TFSW_TimesheetModel.Store.Collections" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Projects" EntityType="TFSW_TimesheetModel.Store.Projects" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SchemaVersion" EntityType="TFSW_TimesheetModel.Store.SchemaVersion" store:Type="Tables" store:Schema="dbo" store:Name="SchemaVersion">
+      <DefiningQuery>SELECT 
+      [SchemaVersion].[version] AS [version]
+      FROM [dbo].[SchemaVersion] AS [SchemaVersion]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="TimeSheet_AllUsers" EntityType="TFSW_TimesheetModel.Store.TimeSheet_AllUsers" store:Type="Tables" store:Schema="dbo" store:Name="TimeSheet_AllUsers">
+      <DefiningQuery>SELECT 
+      [TimeSheet_AllUsers].[sid] AS [sid], 
+      [TimeSheet_AllUsers].[ProjectCollectionId] AS [ProjectCollectionId], 
+      [TimeSheet_AllUsers].[EntryDate] AS [EntryDate], 
+      [TimeSheet_AllUsers].[UserName] AS [UserName]
+      FROM [dbo].[TimeSheet_AllUsers] AS [TimeSheet_AllUsers]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="TimesheetCompletions" EntityType="TFSW_TimesheetModel.Store.TimesheetCompletions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TimesheetEntries" EntityType="TFSW_TimesheetModel.Store.TimesheetEntries" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Projects_Collections" Association="TFSW_TimesheetModel.Store.FK_Projects_Collections">
+      <End Role="Collections" EntitySet="Collections" />
+      <End Role="Projects" EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TimesheetCompletions_Projects" Association="TFSW_TimesheetModel.Store.FK_TimesheetCompletions_Projects">
+      <End Role="Projects" EntitySet="Projects" />
+      <End Role="TimesheetCompletions" EntitySet="TimesheetCompletions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TimesheetEntries_Projects" Association="TFSW_TimesheetModel.Store.FK_TimesheetEntries_Projects">
+      <End Role="Projects" EntitySet="Projects" />
+      <End Role="TimesheetEntries" EntitySet="TimesheetEntries" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Collections">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CollectionName" Type="nchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Projects">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectName" Type="nchar" Nullable="false" MaxLength="100" />
+    <Property Name="CollectionId" Type="int" Nullable="false" />
+    <Property Name="ManagerName" Type="nchar" Nullable="false" MaxLength="100" />
+    <Property Name="ManagerId" Type="nchar" Nullable="false" MaxLength="100" />
+    <Property Name="TeamSize" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'TFSW_Timesheet.dbo.SchemaVersion' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="SchemaVersion">
+    <Key>
+      <PropertyRef Name="version" />
+    </Key>
+    <Property Name="version" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'TFSW_Timesheet.dbo.TimeSheet_AllUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="TimeSheet_AllUsers">
+    <Key>
+      <PropertyRef Name="sid" />
+      <PropertyRef Name="EntryDate" />
+    </Key>
+    <Property Name="sid" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="ProjectCollectionId" Type="int" />
+    <Property Name="EntryDate" Type="datetime" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="TimesheetCompletions">
+    <Key>
+      <PropertyRef Name="sid" />
+      <PropertyRef Name="weekStarting" />
+    </Key>
+    <Property Name="sid" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="weekStarting" Type="datetime" Nullable="false" />
+    <Property Name="completed" Type="bit" />
+    <Property Name="approved" Type="bit" />
+    <Property Name="administratorSid" Type="nvarchar" MaxLength="128" />
+    <Property Name="comments" Type="ntext" />
+    <Property Name="ProjectCollectionId" Type="int" />
+  </EntityType>
+  <EntityType Name="TimesheetEntries">
+    <Key>
+      <PropertyRef Name="entryId" />
+    </Key>
+    <Property Name="entryId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="workItemId" Type="int" Nullable="false" />
+    <Property Name="sid" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="hours" Type="decimal" Nullable="false" Scale="4" />
+    <Property Name="entryDate" Type="datetime" Nullable="false" />
+    <Property Name="ProjectCollectionId" Type="int" />
+    <Property Name="fieldName" Type="varchar" Nullable="false" MaxLength="128" />
+  </EntityType>
+  <Association Name="FK_Projects_Collections">
+    <End Role="Collections" Type="TFSW_TimesheetModel.Store.Collections" Multiplicity="1" />
+    <End Role="Projects" Type="TFSW_TimesheetModel.Store.Projects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Collections">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Projects">
+        <PropertyRef Name="CollectionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TimesheetCompletions_Projects">
+    <End Role="Projects" Type="TFSW_TimesheetModel.Store.Projects" Multiplicity="0..1" />
+    <End Role="TimesheetCompletions" Type="TFSW_TimesheetModel.Store.TimesheetCompletions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TimesheetCompletions">
+        <PropertyRef Name="ProjectCollectionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TimesheetEntries_Projects">
+    <End Role="Projects" Type="TFSW_TimesheetModel.Store.Projects" Multiplicity="0..1" />
+    <End Role="TimesheetEntries" Type="TFSW_TimesheetModel.Store.TimesheetEntries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TimesheetEntries">
+        <PropertyRef Name="ProjectCollectionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="Insert_into_TimeSheet_AlluserReal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Insertinto_TimeSheet_Allusers_1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Sid" Type="nvarchar" Mode="In" />
+    <Parameter Name="ProjectCollectionId" Type="int" Mode="In" />
+    <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+    <Parameter Name="User_Status" Type="varchar" Mode="In" />
+    <Parameter Name="EntryDate" Type="datetime" Mode="In" />
+    <Parameter Name="StartDate" Type="datetime" Mode="In" />
+    <Parameter Name="EndDate" Type="datetime" Mode="In" />
+    <Parameter Name="Project" Type="varchar" Mode="In" />
+    <Parameter Name="ProjectGUID" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="TFSGetUserName" ReturnType="nvarchar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sid" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_INS_WorkItemForWeek" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sid" Type="nvarchar" Mode="In" />
+    <Parameter Name="startOfWeek" Type="datetime" Mode="In" />
+    <Parameter Name="workItemId" Type="int" Mode="In" />
+    <Parameter Name="fieldName" Type="nvarchar" Mode="In" />
+    <Parameter Name="projectCollectionId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_RS_AwaitingApproval" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="collectionName" Type="nvarchar" Mode="In" />
+    <Parameter Name="projectCollectionId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_RS_EntriesForWeek" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sid" Type="nvarchar" Mode="In" />
+    <Parameter Name="startOfWeek" Type="datetime" Mode="In" />
+    <Parameter Name="collection" Type="nvarchar" Mode="In" />
+    <Parameter Name="projectCollectionId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_RS_Problems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sid" Type="nvarchar" Mode="In" />
+    <Parameter Name="collectionName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_RS_UserInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sid" Type="nvarchar" Mode="In" />
+    <Parameter Name="collection" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_RS_Users" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="collectionName" Type="nvarchar" Mode="In" />
+    <Parameter Name="projectCollectionId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_TFS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CollectionName" Type="nvarchar" Mode="In" />
+    <Parameter Name="FromDate" Type="datetime" Mode="In" />
+    <Parameter Name="Today" Type="datetime" Mode="In" />
+    <Parameter Name="ProjectName" Type="nvarchar" Mode="In" />
+    <Parameter Name="approved" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="USP_TFS_AllDates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="startdate" Type="datetime" Mode="In" />
+    <Parameter Name="enddate" Type="datetime" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="thedate" Type="datetime" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <Function Name="USP_TFS_TimeSheet_Report" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CollectionName" Type="nvarchar" Mode="In" />
+    <Parameter Name="ProjectName" Type="nvarchar" Mode="In" />
+    <Parameter Name="FromDate" Type="datetime" Mode="In" />
+    <Parameter Name="Today" Type="datetime" Mode="In" />
+    <Parameter Name="Status" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="USP_TFS_TimeSheet_Report1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CollectionName" Type="nvarchar" Mode="In" />
+    <Parameter Name="ProjectName" Type="nvarchar" Mode="In" />
+    <Parameter Name="FromDate" Type="datetime" Mode="In" />
+    <Parameter Name="Today" Type="datetime" Mode="In" />
+    <Parameter Name="Status" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_UPD_EntriesForWeek" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sid" Type="nvarchar" Mode="In" />
+    <Parameter Name="changedEntriesXml" Type="ntext" Mode="In" />
+    <Parameter Name="synchronizeTotals" Type="bit" Mode="In" />
+    <Parameter Name="projectCollectionId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_UPD_StateForWeek" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sid" Type="nvarchar" Mode="In" />
+    <Parameter Name="weekStarting" Type="datetime" Mode="In" />
+    <Parameter Name="completed" Type="bit" Mode="In" />
+    <Parameter Name="approved" Type="bit" Mode="In" />
+    <Parameter Name="administratorSid" Type="nvarchar" Mode="In" />
+    <Parameter Name="comments" Type="ntext" Mode="In" />
+    <Parameter Name="projectCollectionId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_UPD_TimeOnWorkItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="workItemId" Type="int" Mode="In" />
+    <Parameter Name="sid" Type="nvarchar" Mode="In" />
+    <Parameter Name="workAmountChange" Type="decimal" Mode="In" />
+    <Parameter Name="fieldName" Type="nvarchar" Mode="In" />
+    <Parameter Name="revision" Type="int" Mode="In" />
+    <Parameter Name="projectCollectionId" Type="int" Mode="In" />
+  </Function>
+  <!--Errors Found During Generation:
+      warning 6013: The table/view 'TFSW_Timesheet.dbo.TimeSheet_AllUsers_Dump' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="TimeSheet_AllUsers_Dump">
+        <Property Name="sid" Type="nvarchar" MaxLength="128" />
+        <Property Name="ProjectCollectionId" Type="int" />
+        <Property Name="UserName" Type="nvarchar" MaxLength="500" />
+        <Property Name="User_Status" Type="nvarchar" MaxLength="15" />
+        <Property Name="EntryDate" Type="datetime" />
+        <Property Name="StartDate" Type="datetime" />
+        <Property Name="EndDate" Type="datetime" />
+        <Property Name="Project" Type="varchar" MaxLength="250" />
+        <Property Name="ProjectGUID" Type="nvarchar" MaxLength="500" />
+        <Property Name="UserID" Type="int" />
+      </EntityType>
+      Errors Found During Generation:
+      warning 6013: The table/view 'TFSW_Timesheet.dbo.TimeSheet_AllUsers_Real' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="TimeSheet_AllUsers_Real">
+        <Property Name="sid" Type="nvarchar" MaxLength="128" />
+        <Property Name="ProjectCollectionId" Type="int" />
+        <Property Name="UserName" Type="nvarchar" MaxLength="500" />
+        <Property Name="User_Status" Type="nvarchar" MaxLength="15" />
+        <Property Name="EntryDate" Type="datetime" />
+        <Property Name="StartDate" Type="datetime" />
+        <Property Name="EndDate" Type="datetime" />
+        <Property Name="Project" Type="varchar" MaxLength="250" />
+        <Property Name="ProjectGUID" Type="nvarchar" MaxLength="500" />
+      </EntityType>-->
+</Schema>

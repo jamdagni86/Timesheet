@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TimesheetModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="TimesheetEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Collections" EntityType="TimesheetModel.Collection" />
+    <EntitySet Name="Projects" EntityType="TimesheetModel.Project" />
+    <EntitySet Name="SchemaVersions" EntityType="TimesheetModel.SchemaVersion" />
+    <EntitySet Name="TimeSheet_AllUsers" EntityType="TimesheetModel.TimeSheet_AllUsers" />
+    <EntitySet Name="TimesheetCompletions" EntityType="TimesheetModel.TimesheetCompletion" />
+    <EntitySet Name="TimesheetEntries" EntityType="TimesheetModel.TimesheetEntry" />
+    <AssociationSet Name="FK_Projects_Collections" Association="TimesheetModel.FK_Projects_Collections">
+      <End Role="Collections" EntitySet="Collections" />
+      <End Role="Projects" EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TimesheetCompletions_Projects" Association="TimesheetModel.FK_TimesheetCompletions_Projects">
+      <End Role="Projects" EntitySet="Projects" />
+      <End Role="TimesheetCompletions" EntitySet="TimesheetCompletions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TimesheetEntries_Projects" Association="TimesheetModel.FK_TimesheetEntries_Projects">
+      <End Role="Projects" EntitySet="Projects" />
+      <End Role="TimesheetEntries" EntitySet="TimesheetEntries" />
+    </AssociationSet>
+    <FunctionImport Name="USP_TFS_AllDates" ReturnType="Collection(TimesheetModel.USP_TFS_AllDates_Result)" IsComposable="true">
+      <Parameter Name="startdate" Type="DateTime" />
+      <Parameter Name="enddate" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="Insert_into_TimeSheet_AlluserReal" />
+    <FunctionImport Name="Insertinto_TimeSheet_Allusers_1">
+      <Parameter Name="Sid" Mode="In" Type="String" />
+      <Parameter Name="ProjectCollectionId" Mode="In" Type="Int32" />
+      <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="User_Status" Mode="In" Type="String" />
+      <Parameter Name="EntryDate" Mode="In" Type="DateTime" />
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+      <Parameter Name="Project" Mode="In" Type="String" />
+      <Parameter Name="ProjectGUID" Mode="In" Type="String" />
+      <Parameter Name="UserID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_INS_WorkItemForWeek">
+      <Parameter Name="sid" Mode="In" Type="String" />
+      <Parameter Name="startOfWeek" Mode="In" Type="DateTime" />
+      <Parameter Name="workItemId" Mode="In" Type="Int32" />
+      <Parameter Name="fieldName" Mode="In" Type="String" />
+      <Parameter Name="projectCollectionId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_RS_AwaitingApproval">
+      <Parameter Name="collectionName" Mode="In" Type="String" />
+      <Parameter Name="projectCollectionId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_RS_EntriesForWeek">
+      <Parameter Name="sid" Mode="In" Type="String" />
+      <Parameter Name="startOfWeek" Mode="In" Type="DateTime" />
+      <Parameter Name="collection" Mode="In" Type="String" />
+      <Parameter Name="projectCollectionId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_RS_Problems">
+      <Parameter Name="sid" Mode="In" Type="String" />
+      <Parameter Name="collectionName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_RS_UserInfo">
+      <Parameter Name="sid" Mode="In" Type="String" />
+      <Parameter Name="collection" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_RS_Users">
+      <Parameter Name="collectionName" Mode="In" Type="String" />
+      <Parameter Name="projectCollectionId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_TFS" ReturnType="Collection(TimesheetModel.usp_TFS_Result)">
+      <Parameter Name="CollectionName" Mode="In" Type="String" />
+      <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+      <Parameter Name="Today" Mode="In" Type="DateTime" />
+      <Parameter Name="ProjectName" Mode="In" Type="String" />
+      <Parameter Name="approved" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="USP_TFS_TimeSheet_Report" ReturnType="Collection(TimesheetModel.USP_TFS_TimeSheet_Report_Result)">
+      <Parameter Name="CollectionName" Mode="In" Type="String" />
+      <Parameter Name="ProjectName" Mode="In" Type="String" />
+      <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+      <Parameter Name="Today" Mode="In" Type="DateTime" />
+      <Parameter Name="Status" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="USP_TFS_TimeSheet_Report1" ReturnType="Collection(TimesheetModel.USP_TFS_TimeSheet_Report1_Result)">
+      <Parameter Name="CollectionName" Mode="In" Type="String" />
+      <Parameter Name="ProjectName" Mode="In" Type="String" />
+      <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+      <Parameter Name="Today" Mode="In" Type="DateTime" />
+      <Parameter Name="Status" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_UPD_EntriesForWeek">
+      <Parameter Name="sid" Mode="In" Type="String" />
+      <Parameter Name="changedEntriesXml" Mode="In" Type="String" />
+      <Parameter Name="synchronizeTotals" Mode="In" Type="Boolean" />
+      <Parameter Name="projectCollectionId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_UPD_StateForWeek">
+      <Parameter Name="sid" Mode="In" Type="String" />
+      <Parameter Name="weekStarting" Mode="In" Type="DateTime" />
+      <Parameter Name="completed" Mode="In" Type="Boolean" />
+      <Parameter Name="approved" Mode="In" Type="Boolean" />
+      <Parameter Name="administratorSid" Mode="In" Type="String" />
+      <Parameter Name="comments" Mode="In" Type="String" />
+      <Parameter Name="projectCollectionId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_UPD_TimeOnWorkItem">
+      <Parameter Name="workItemId" Mode="In" Type="Int32" />
+      <Parameter Name="sid" Mode="In" Type="String" />
+      <Parameter Name="workAmountChange" Mode="In" Type="Decimal" />
+      <Parameter Name="fieldName" Mode="In" Type="String" />
+      <Parameter Name="revision" Mode="In" Type="Int32" />
+      <Parameter Name="projectCollectionId" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="USP_TFS_AllDates_Result">
+    <Property Name="thedate" Type="DateTime" />
+  </ComplexType>
+  <EntityType Name="Collection">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CollectionName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="true" />
+    <NavigationProperty Name="Projects" Relationship="TimesheetModel.FK_Projects_Collections" FromRole="Collections" ToRole="Projects" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="true" />
+    <Property Name="CollectionId" Type="Int32" Nullable="false" />
+    <Property Name="ManagerName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="true" />
+    <Property Name="ManagerId" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="true" />
+    <Property Name="TeamSize" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Collection" Relationship="TimesheetModel.FK_Projects_Collections" FromRole="Projects" ToRole="Collections" />
+    <NavigationProperty Name="TimesheetCompletions" Relationship="TimesheetModel.FK_TimesheetCompletions_Projects" FromRole="Projects" ToRole="TimesheetCompletions" />
+    <NavigationProperty Name="TimesheetEntries" Relationship="TimesheetModel.FK_TimesheetEntries_Projects" FromRole="Projects" ToRole="TimesheetEntries" />
+  </EntityType>
+  <EntityType Name="SchemaVersion">
+    <Key>
+      <PropertyRef Name="version" />
+    </Key>
+    <Property Name="version" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TimeSheet_AllUsers">
+    <Key>
+      <PropertyRef Name="sid" />
+      <PropertyRef Name="EntryDate" />
+    </Key>
+    <Property Name="sid" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="ProjectCollectionId" Type="Int32" />
+    <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UserName" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TimesheetCompletion">
+    <Key>
+      <PropertyRef Name="sid" />
+      <PropertyRef Name="weekStarting" />
+    </Key>
+    <Property Name="sid" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="weekStarting" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="completed" Type="Boolean" />
+    <Property Name="approved" Type="Boolean" />
+    <Property Name="administratorSid" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="comments" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ProjectCollectionId" Type="Int32" />
+    <NavigationProperty Name="Project" Relationship="TimesheetModel.FK_TimesheetCompletions_Projects" FromRole="TimesheetCompletions" ToRole="Projects" />
+  </EntityType>
+  <EntityType Name="TimesheetEntry">
+    <Key>
+      <PropertyRef Name="entryId" />
+    </Key>
+    <Property Name="entryId" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="workItemId" Type="Int32" Nullable="false" />
+    <Property Name="sid" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="hours" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+    <Property Name="entryDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ProjectCollectionId" Type="Int32" />
+    <Property Name="fieldName" Type="String" Nullable="false" MaxLength="128" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Project" Relationship="TimesheetModel.FK_TimesheetEntries_Projects" FromRole="TimesheetEntries" ToRole="Projects" />
+  </EntityType>
+  <Association Name="FK_Projects_Collections">
+    <End Role="Collections" Type="TimesheetModel.Collection" Multiplicity="1" />
+    <End Role="Projects" Type="TimesheetModel.Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Collections">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Projects">
+        <PropertyRef Name="CollectionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TimesheetCompletions_Projects">
+    <End Role="Projects" Type="TimesheetModel.Project" Multiplicity="0..1" />
+    <End Role="TimesheetCompletions" Type="TimesheetModel.TimesheetCompletion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TimesheetCompletions">
+        <PropertyRef Name="ProjectCollectionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TimesheetEntries_Projects">
+    <End Role="Projects" Type="TimesheetModel.Project" Multiplicity="0..1" />
+    <End Role="TimesheetEntries" Type="TimesheetModel.TimesheetEntry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TimesheetEntries">
+        <PropertyRef Name="ProjectCollectionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="usp_TFS_Result">
+    <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="127" />
+    <Property Type="String" Name="ProjectName" Nullable="false" MaxLength="100" />
+    <Property Type="Boolean" Name="approved" Nullable="true" />
+    <Property Type="DateTime" Name="weekStarting" Nullable="false" Precision="23" />
+    <Property Type="Decimal" Name="Totalhours" Nullable="true" Precision="38" Scale="4" />
+  </ComplexType>
+  <ComplexType Name="USP_TFS_TimeSheet_Report_Result">
+    <Property Type="String" Name="employeename" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="projectname" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="approved" Nullable="true" />
+    <Property Type="DateTime" Name="weekstarting" Nullable="true" Precision="23" />
+    <Property Type="Decimal" Name="totalhours" Nullable="true" Precision="10" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="USP_TFS_TimeSheet_Report1_Result">
+    <Property Type="String" Name="employeename" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="projectname" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="approved" Nullable="true" />
+    <Property Type="DateTime" Name="weekstarting" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="totalhours" Nullable="true" />
+  </ComplexType>
+</Schema>

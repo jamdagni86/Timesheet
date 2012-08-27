@@ -1,0 +1,5 @@
+C:\Users\Raghu\Documents\Visual Studio 2012\Projects\Timesheet\Timesheet\bin\WcfService1.dll
+C:\Users\Raghu\Documents\Visual Studio 2012\Projects\Timesheet\Timesheet\bin\WcfService1.pdb
+C:\Users\Raghu\Documents\Visual Studio 2012\Projects\Timesheet\Timesheet\obj\Debug\Timesheet.csprojResolveAssemblyReference.cache
+C:\Users\Raghu\Documents\Visual Studio 2012\Projects\Timesheet\Timesheet\obj\Debug\WcfService1.dll
+C:\Users\Raghu\Documents\Visual Studio 2012\Projects\Timesheet\Timesheet\obj\Debug\WcfService1.pdb
