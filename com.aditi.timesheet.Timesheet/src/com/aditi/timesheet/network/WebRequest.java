@@ -16,6 +16,7 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 
 public class WebRequest {
+	// Web Request
 	public String request(String url, String data) {
 
 		HttpClient httpClient = new DefaultHttpClient();

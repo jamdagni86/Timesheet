@@ -7,7 +7,9 @@ namespace TimesheetService {
 
         public Result Login(Login loginInfo) {
 
+            if (loginInfo != null) { 
 
+            }
 
             return new Result {
                 Success = true,
