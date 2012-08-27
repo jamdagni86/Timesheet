@@ -9,7 +9,6 @@ import com.aditi.timesheet.serializer.JsonSerializer;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -42,10 +41,6 @@ public class Timesheet extends Activity {
 				password = passwordString;
 			}
 		};	
-		
-		ProgressDialog dialog = new ProgressDialog(getApplicationContext());
-		dialog.setTitle("Loading..");
-		dialog.show();
 		
 		WebRequest request = new WebRequest(); 
 		String response = request.request("http://10.0.2.2/Json/Timesheet.svc/Login", 

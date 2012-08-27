@@ -5,11 +5,7 @@ namespace TimesheetService {
     // NOTE: In order to launch WCF Test Client for testing this service, please select Timesheet.svc or Timesheet.svc.cs at the Solution Explorer and start debugging.
     public class Timesheet : ITimesheet {
 
-        public Result Login(Login loginInfo) {
-
-            if (loginInfo != null) { 
-
-            }
+        public Result Login(Login loginInfo) {            
 
             return new Result {
                 Success = true,

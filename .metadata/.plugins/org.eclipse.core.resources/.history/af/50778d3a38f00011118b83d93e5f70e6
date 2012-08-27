@@ -44,8 +44,7 @@ public class Timesheet extends Activity {
 		};	
 		
 		ProgressDialog dialog = new ProgressDialog(getApplicationContext());
-		dialog.setTitle("Loading..");
-		dialog.show();
+		dialog.setTitle("");
 		
 		WebRequest request = new WebRequest(); 
 		String response = request.request("http://10.0.2.2/Json/Timesheet.svc/Login", 
