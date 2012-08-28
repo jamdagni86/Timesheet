@@ -15,6 +15,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 
+import android.os.AsyncTask;
+
 public class WebRequest {
 	// Web Request
 	public String request(String url, String data) {
@@ -34,7 +36,7 @@ public class WebRequest {
 
 			BufferedReader r = new BufferedReader(new InputStreamReader(
 					inputStream));
-
+			
 			String line;
 			while ((line = r.readLine()) != null) {
 				total.append(line);
@@ -51,4 +53,13 @@ public class WebRequest {
 		}
 		return "";
 	}
+}
+
+class AsyncWebRequest extends AsyncTask<String, Void, String>{
+
+	@Override
+	protected String doInBackground(String... params) {
+		// TODO Auto-generated method stub
+		return null;
+	}		
 }
