@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 
@@ -14,8 +16,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
-
-import android.os.AsyncTask;
 
 public class WebRequest {
 	// Web Request
@@ -31,8 +31,9 @@ public class WebRequest {
 			httpPost.setHeader("Accept", "application/json");
 			httpPost.setEntity(new StringEntity(data));
 
-			InputStream inputStream = httpClient
-					.execute(httpPost, localContext).getEntity().getContent();
+			HttpResponse response = httpClient.execute(httpPost, localContext);
+			HttpEntity entity = response.getEntity();
+			InputStream inputStream = entity.getContent();
 
 			BufferedReader r = new BufferedReader(new InputStreamReader(
 					inputStream));
@@ -55,11 +56,4 @@ public class WebRequest {
 	}
 }
 
-class AsyncWebRequest extends AsyncTask<String, Void, String>{
 
-	@Override
-	protected String doInBackground(String... params) {
-		// TODO Auto-generated method stub
-		return null;
-	}		
-}

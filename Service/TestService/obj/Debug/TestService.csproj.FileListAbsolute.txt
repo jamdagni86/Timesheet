@@ -1,2 +1,8 @@
 C:\Users\Administrator.SRNTST\Documents\Visual Studio 2012\WcfService1\TestService\bin\Debug\TestService.exe.config
 C:\Users\Raghu\Documents\Visual Studio 2012\Projects\Timesheet\TestService\bin\Debug\TestService.exe.config
+C:\Users\raghavendrakn\Documents\Visual Studio 2010\Projects\Timesheet Solution\Service\TestService\bin\Debug\TestService.exe.config
+C:\Users\raghavendrakn\Documents\Visual Studio 2010\Projects\Timesheet Solution\Service\TestService\bin\Debug\TestService.exe
+C:\Users\raghavendrakn\Documents\Visual Studio 2010\Projects\Timesheet Solution\Service\TestService\bin\Debug\TestService.pdb
+C:\Users\raghavendrakn\Documents\Visual Studio 2010\Projects\Timesheet Solution\Service\TestService\obj\Debug\TestService.csprojResolveAssemblyReference.cache
+C:\Users\raghavendrakn\Documents\Visual Studio 2010\Projects\Timesheet Solution\Service\TestService\obj\Debug\TestService.exe
+C:\Users\raghavendrakn\Documents\Visual Studio 2010\Projects\Timesheet Solution\Service\TestService\obj\Debug\TestService.pdb

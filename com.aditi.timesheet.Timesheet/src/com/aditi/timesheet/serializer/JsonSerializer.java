@@ -6,52 +6,51 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class JsonSerializer {
-	public static <T> String serialize(T object) {
+	public static <T> String serialize(T object, String wrapperString) {
 
 		StringBuilder builder = new StringBuilder("{");
 
-		Class<? extends Object> classObject = object.getClass();
-		// Serialize classAttribute = Class.forName(classObject.getName())
-		// .getAnnotation(Serialize.class);
-		//
-		// if (classAttribute != null) {
-		//
-		// builder.append(String.format("\"%s\": {", classAttribute.name()));
+		Class<? extends Object> classObject = object.getClass();		
 
-		Field[] fields = classObject.getFields();
+		if (wrapperString != null && wrapperString != "") {
 
-		if (fields != null && fields.length > 0) {
-			for (int i = 0; i < fields.length; i++) {
-				Field field = fields[i];
+			builder.append(String.format("\"%s\": {", wrapperString));
 
-				Serialize serialize = field.getAnnotation(Serialize.class);
-				if (serialize != null) {
-					try {
-						builder.append(String.format("\"%s\": \"%s\"%s",
-								serialize.name(), field.get(object).toString(),
-								i == fields.length - 1 ? "" : ","));
-					} catch (IllegalArgumentException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+			Field[] fields = classObject.getFields();
+
+			if (fields != null && fields.length > 0) {
+				for (int i = 0; i < fields.length; i++) {
+					Field field = fields[i];
+
+					Serialize serialize = field.getAnnotation(Serialize.class);
+					if (serialize != null) {
+						try {
+							builder.append(String.format("\"%s\": \"%s\"%s",
+									serialize.name(), field.get(object)
+											.toString(),
+									i == fields.length - 1 ? "" : ","));
+						} catch (IllegalArgumentException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				}
+				builder.append("}");
 			}
 			builder.append("}");
+			return builder.toString();
+		} else {
+			return "";
 		}
-		// builder.append("}");
-		return builder.toString();
-		// } else {
-		// return "";
-		// }
 	}
 
-	public static <T> T deSerialize(Class<T> type, String object)
+	public static <T> T deSerialize(Class<T> type, String object, String wrapperString)
 			throws JSONException, InstantiationException,
 			IllegalAccessException {
-		JSONObject jsonObject = new JSONObject(object);
+		JSONObject jsonObject = new JSONObject(object).getJSONObject(wrapperString);
 
 		T variable = type.newInstance();
 		Field[] fields = type.getFields();

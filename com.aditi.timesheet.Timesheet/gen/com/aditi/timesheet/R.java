@@ -29,7 +29,7 @@ public final class R {
         public static final int userName=0x7f080002;
     }
     public static final class layout {
-        public static final int activity_timesheet=0x7f030000;
+        public static final int activity_timesheet_login=0x7f030000;
     }
     public static final class menu {
         public static final int activity_timesheet=0x7f070000;

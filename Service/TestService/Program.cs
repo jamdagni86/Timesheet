@@ -7,7 +7,7 @@ namespace TestService {
             WebClient client = new WebClient();
             try {
                 client.Headers.Add("content-type", "application/json");
-                string response = client.UploadString("http://localhost/Json/Service1.svc/GetDataUsingDataContract", "{\"composite\" : { \"BoolValue\" : true, \"StringValue\" : \"String\"},\"testInt\" : 1}");
+                string response = client.UploadString("http://localhost/Json/Timesheet.svc/Login", "{\"loginInfo\" : { \"userName\" : \"\", \"password\" : \"\"} }");
                 
             } catch (WebException ex) {
 
