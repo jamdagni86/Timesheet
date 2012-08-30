@@ -5,12 +5,16 @@ namespace TimesheetService {
     // NOTE: In order to launch WCF Test Client for testing this service, please select Timesheet.svc or Timesheet.svc.cs at the Solution Explorer and start debugging.
     public class Timesheet : ITimesheet {
 
-        public Result Login(Login loginInfo) {            
+        public Result Login(Login loginInfo) {
 
             return new Result {
                 Success = true,
-                Data = "S-1-5-21-873596329-1595174118-1390078505-21871"
+                Data = "-1390078505S-1-5-21-873596329-1595174118-21871"
             };
+        }
+
+        public string[] GetTasks(string uid) {
+            return new[] { "Coding", "Code Review", "Bug Fixing", "Unit Testing" };
         }
     }
 }

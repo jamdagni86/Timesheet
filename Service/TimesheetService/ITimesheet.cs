@@ -15,5 +15,10 @@ namespace TimesheetService {
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, 
             RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
         Result Login(Login loginInfo);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        String[] GetTasks(String uid);
     }
 }
