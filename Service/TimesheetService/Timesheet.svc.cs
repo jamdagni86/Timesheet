@@ -13,8 +13,13 @@ namespace TimesheetService {
             };
         }
 
-        public string[] GetTasks(string uid) {
-            return new[] { "Coding", "Code Review", "Bug Fixing", "Unit Testing" };
+        public WorkItem[] GetTasks(string uid) {
+            return new[] { 
+                new WorkItem { ID = 1, Item = "Coding" }, 
+                new WorkItem { ID = 2, Item = "Code Review" }, 
+                new WorkItem { ID = 3, Item = "Bug Fixing" }, 
+                new WorkItem { ID = 2, Item = "Unit Testing" } 
+            };
         }
     }
 }

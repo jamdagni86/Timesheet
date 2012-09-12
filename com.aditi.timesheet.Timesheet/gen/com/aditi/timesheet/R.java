@@ -20,16 +20,18 @@ public final class R {
         public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
-        public static final int LinearLayout1=0x7f080003;
+        public static final int LinearLayout1=0x7f080005;
+        public static final int dailyTimePicker=0x7f080004;
+        public static final int datePicker=0x7f080001;
         public static final int entryLayout=0x7f080000;
-        public static final int login=0x7f080007;
-        public static final int loginContainer=0x7f080004;
-        public static final int menu_settings=0x7f080009;
-        public static final int password=0x7f080006;
-        public static final int reset=0x7f080008;
-        public static final int spinnerTasks=0x7f080002;
-        public static final int textView1=0x7f080001;
-        public static final int userName=0x7f080005;
+        public static final int login=0x7f080009;
+        public static final int loginContainer=0x7f080006;
+        public static final int menu_settings=0x7f08000b;
+        public static final int password=0x7f080008;
+        public static final int reset=0x7f08000a;
+        public static final int userName=0x7f080007;
+        public static final int workItemTextView=0x7f080002;
+        public static final int workItemsSpinner=0x7f080003;
     }
     public static final class layout {
         public static final int activity_timesheet_entry=0x7f030000;
@@ -47,6 +49,7 @@ public final class R {
         public static final int reset=0x7f050007;
         public static final int title_activity_timesheet=0x7f050003;
         public static final int userName=0x7f050005;
+        public static final int workItem=0x7f050008;
     }
     public static final class style {
         public static final int AppTheme=0x7f060000;

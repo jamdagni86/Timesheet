@@ -19,6 +19,6 @@ namespace TimesheetService {
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-        String[] GetTasks(String uid);
+        WorkItem[] GetTasks(String uid);
     }
 }
